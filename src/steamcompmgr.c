@@ -1180,6 +1180,7 @@ determine_and_apply_focus (Display *dpy)
 		{
 			continue;
 		}
+		
 		if (w->isSteam && !gameFocused)
 		{
 			focus = w;
