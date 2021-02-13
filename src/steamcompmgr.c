@@ -1810,6 +1810,59 @@ usage (char *program)
 	exit (1);
 }
 
+static void
+debug_event (int evt)
+{
+	switch (evt) {
+		case CreateNotify:
+			printf ("XEvent CreateNotify\n");
+			break;
+		case ConfigureNotify:
+			printf ("XEvent ConfigureNotify\n");
+			break;
+		case DestroyNotify:
+			printf ("XEvent DestroyNotify\n");
+			break;
+		case MapNotify:
+			printf ("XEvent MapNotify\n");
+			break;
+		case UnmapNotify:
+			printf ("XEvent UnmapNotify\n");
+			break;
+		case ReparentNotify:
+			printf ("XEvent ReparentNotify\n");
+			break;
+		case CirculateNotify:
+			printf ("XEvent CirculateNotify\n");
+			break;
+		case Expose:
+			printf ("XEvent Expose\n");
+			break;
+		case PropertyNotify:
+			printf ("XEvent PropertyNotify\n");
+			break;
+		case ClientMessage:
+			printf ("XEvent ClientMessage\n");
+			break;
+		case LeaveNotify:
+			printf ("XEvent LeaveNotify\n");
+			break;
+		case MotionNotify:
+			printf ("XEvent MotionNotify\n");
+			break;
+		default:
+			if (evt == damage_event + XDamageNotify)
+			{
+				printf ("XEvent XDamageNotify\n");
+			}
+			else if (evt == xfixes_event + XFixesCursorNotify)
+			{
+				printf ("XEvent XFixesCursorNotify\n");
+			}
+			break;
+	}
+}
+
 static Bool
 register_cm (Display *dpy)
 {
@@ -2142,12 +2195,12 @@ main (int argc, char **argv)
 		
 		do {
 			XNextEvent (dpy, &ev);
+			if (debugEvents)
+				debug_event(ev.type);
+
 			if ((ev.type & 0x7f) != KeymapNotify)
 				discard_ignore (dpy, ev.xany.serial);
-			if (debugEvents)
-			{
-				printf ("event %x\n", ev.type);
-			}
+
 			switch (ev.type) {
 				case CreateNotify:
 					if (ev.xcreatewindow.parent == root)
@@ -2402,6 +2455,10 @@ main (int argc, char **argv)
 						else if (ev.type == xfixes_event + XFixesCursorNotify)
 						{
 							cursorImageDirty = True;
+						}
+						else {
+							if (debugEvents)
+								printf ("Unhandled XEvent %x\n", ev.type);
 						}
 						break;
 			}
