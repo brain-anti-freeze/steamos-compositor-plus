@@ -894,7 +894,7 @@ paint_debug_info (Display *dpy)
 	{
 		if (gameFocused)
 		{
-			sprintf(messageBuffer, "Presenting game window %x", (unsigned int)currentFocusWindow);
+			sprintf(messageBuffer, "Presenting game window 0x%lx", (unsigned int)currentFocusWindow);
 			paint_message(messageBuffer, Y, 0.0f, 1.0f, 0.0f); Y += textYMax;
 		}
 		else
