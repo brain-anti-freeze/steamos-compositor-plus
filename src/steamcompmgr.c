@@ -1241,7 +1241,7 @@ determine_and_apply_focus (Display *dpy)
 	{
 		set_win_hidden(dpy, find_win(dpy, currentFocusWindow), True);
 	}
-	
+
 	currentFocusWindow = focus->id;
 	w = focus;
 	
@@ -1768,11 +1768,11 @@ error (Display *dpy, XErrorEvent *ev)
 	}
 	o = ev->error_code - render_error;
 	switch (o) {
-		case BadPictFormat: name ="BadPictFormat"; break;
-		case BadPicture: name ="BadPicture"; break;
-		case BadPictOp: name ="BadPictOp"; break;
-		case BadGlyphSet: name ="BadGlyphSet"; break;
-		case BadGlyph: name ="BadGlyph"; break;
+		case BadPictFormat: name = "BadPictFormat"; break;
+		case BadPicture: name = "BadPicture"; break;
+		case BadPictOp: name = "BadPictOp"; break;
+		case BadGlyphSet: name = "BadGlyphSet"; break;
+		case BadGlyph: name = "BadGlyph"; break;
 		default: break;
 	}
 	
